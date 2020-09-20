@@ -5,10 +5,12 @@ using namespace std;
 
 class Agent{
 	public:
-	tuple<double,double> xyPosition;
+	tuple<int,int> xyPosition;
 	int currentState;
-	tuple<double,double> currentTarget;
+	tuple<int,int> finalTarget;
+	tuple<int,int> currentWalkingTarget;
 	template <typename T> void setTarget(vector<T>,int);
+	void walkToNextPoint(vector<tuple<int,int> > listOfWalkingPoints,vector<vector<int> >& streetMap);
 	
 	private:
 };
