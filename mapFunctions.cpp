@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <tuple>
 
 #include "MapFunctions.h"
 using namespace std;
@@ -15,7 +16,7 @@ void loadMap(string inFile, vector<vector<int> >& mapOut){
     int cols(0);
     inMap>>cols;
 
-    vector<vector<int> > buildMat(cols, vector<int> (rows,0));
+    vector<vector<int> > buildMat(rows, vector<int> (cols,0));
 
     for(int i=0;i<(int)buildMat.size();i++){
         for(int j=0;j<(int)buildMat[i].size();j++){
@@ -41,11 +42,16 @@ vector<tuple<int,int> > identifyWalkingPoints(vector<vector<int> >& streetMap){
 			}
 		}
 	}
+    ofstream cornersOut("corners.txt");
+    for(int i=0;i<(int)outCorners.size();i++){
+        cornersOut<<get<0>(outCorners[i])<<" "<<get<1>(outCorners[i])<<endl;
+    }
+    cornersOut.close();
 	return outCorners;
 }
 
 vector<vector<tuple<int,int> > > identifyWalkingVectors(vector<tuple<int,int> >& walkingPoint){
-    int maxNumberOfConnections(3);
+    int maxNumberOfConnections(5);
     vector<vector<tuple<int,int> > > outList;
     for(int i=0;i<(int)walkingPoint.size();i++){
         auto[curX,curY]=walkingPoint[i];
@@ -70,4 +76,8 @@ vector<vector<tuple<int,int> > > identifyWalkingVectors(vector<tuple<int,int> >&
     }
     return outList;
 
+}
+
+vector<vector<tuple<int,int> > > djikstraConnections(vector<vector<int> >& streetMap, vector<tuple<int,int> >& cornerList){
+    
 }

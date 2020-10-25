@@ -8,7 +8,6 @@ using namespace std;
 
 void Agent::walkToNextPoint(vector<tuple<int,int> > listOfWalkingVectors, vector<vector<int> >& streepMap){
 	if(xyPosition!=currentWalkingTarget&&xyPosition!=finalTarget){
-		walk()
 	}
 	else{
 		if(xyPosition==finalTarget){
