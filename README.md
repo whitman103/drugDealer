@@ -3,3 +3,5 @@ The main idea of this model is to intake a map of a real section of a city, curr
 ## Model is written in C++, image analysis performed in Python, map generated in qGIS, data from the City of Columbus.
 Example of Street corner identification performed in program using OpenCV2 in Python.
 [Street Image](https://github.com/whitman103/drugDealer/blob/master/nodeId.PNG)
+
+Basic GUI is being built to show simulation in real-time, and possibly allow interactions.
