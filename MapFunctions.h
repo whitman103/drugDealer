@@ -16,5 +16,6 @@ typedef struct {
 using namespace std;
 void loadMap(string inFile, vector<vector<int> >& outMap);
 vector<Node> loadNodes(string inFile,string edgeConnectionPath);
+double r2Distance(double x1, double y1, double x2, double y2);
 
 #endif

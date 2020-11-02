@@ -2,6 +2,7 @@
 #include <vector>
 #include <fstream>
 #include <tuple>
+#include <cmath>
 
 #include "MapFunctions.h"
 using namespace std;
@@ -55,4 +56,8 @@ vector<Node> loadNodes(string nodePosFile, string edgeConnectionPath){
     return outVector;
 
 
+}
+
+double r2Distance(double x1,double y1,double x2,double y2){
+    return sqrt(pow(x1-x2,2)+pow(y1-y2,2));
 }

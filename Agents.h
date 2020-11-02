@@ -1,16 +1,21 @@
 #include <vector>
 #include <tuple>
 
+#include "MapFunctions.h"
+
 using namespace std;
 
 class Agent{
 	public:
-	tuple<int,int> xyPosition;
+	Agent();
+	Agent(tuple<double,double> initialSpot);
+	tuple<double,double> xyPosition;
 	int currentState;
-	tuple<int,int> finalTarget;
-	tuple<int,int> currentWalkingTarget;
+	int nodeTarget;
+	tuple<double,double> posTarget;
 	template <typename T> void setTarget(vector<T>,int);
-	void walkToNextPoint(vector<tuple<int,int> > listOfWalkingPoints,vector<vector<int> >& streetMap);
+	int walk(Node* inTarget);
+	double stepSize;
 	
 	private:
 };
@@ -28,6 +33,7 @@ class Dealer: public Agent{
 class User: public Agent{
 	public:
 	User(int test);
+	User(tuple<double,double>);
 	~User();
 	void updatePosition();
 	int favoredTarget;
