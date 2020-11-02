@@ -65,6 +65,7 @@ def loadCentroids(inString):
 
 	centroids=[]
 	inString=open(inString,'r')
+	inString.readline()
 	for line in inString:
 		line=line.split(" ")
 		line[1]=line[1].split("\n")[0]
@@ -73,6 +74,9 @@ def loadCentroids(inString):
 
 def distance(x1,y1,x2,y2):
 	return math.sqrt(pow(x1-x2,2)+pow(y1-y2,2))
+
+def s1Distance(x1,y1,x2,y2):
+	return math.fabs(x1-x2)+math.fabs(y1-y2)
 
 def averageCentroids(minDistance,inCentroids):
 	mergeList=[[] for i in range(len(inCentroids))]
@@ -106,3 +110,38 @@ def averageCentroids(minDistance,inCentroids):
 		outList.append([int(yMean),int(xMean)])
 	outList.pop(0)
 	return outList
+
+def drawLines(maxDistance,inCentroids,inMetric):
+	maxConnections=4
+	distanceLabels=[[] for i in range(len(inCentroids))]
+	for firstIndex,firstCen in enumerate(inCentroids):
+		y1,x1=inCentroids[firstIndex][0],inCentroids[firstIndex][1]
+		for secondIndex,secondCen in enumerate(inCentroids):
+			y2,x2=inCentroids[secondIndex][0],inCentroids[secondIndex][1]
+			distanceLabels[firstIndex].append([y1-y2,x1-x2])
+			if firstIndex==secondIndex:
+				distanceLabels[firstIndex][secondIndex]=[1e23,1e23]
+	indexConnections=[[-11,-11,-11,-11] for i in range(len(inCentroids))]
+	for baseIndex,baseNode in enumerate(distanceLabels):
+		negX,negY,posX,posY=-1e10,-1e10,1e10,1e10
+		for compareIndex,compare in enumerate(distanceLabels[baseIndex]):
+			compareDistance=math.sqrt(pow(compare[0],2)+pow(compare[1],2))
+			if compareDistance<maxDistance:
+				if compare[0]<posX and compare[0]>0:
+					indexConnections[baseIndex][0]=compareIndex
+					posX=compare[0]
+				if compare[0]>negX and compare[0]<0:
+					indexConnections[baseIndex][1]=compareIndex
+					negX=compare[0]
+				if compare[1]<posY and compare[1]>0:
+					indexConnections[baseIndex][2]=compareIndex
+					posY=compare[1]
+				if compare[1]>negY and compare[1]<0:
+					indexConnections[baseIndex][3]=compareIndex
+					negY=compare[1]
+	for index,out in enumerate(indexConnections):
+		while -11 in out:
+			indexConnections[index].remove(-11)
+	return indexConnections
+
+

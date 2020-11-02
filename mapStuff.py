@@ -29,13 +29,27 @@ for yIndex,yData in enumerate(mergedCentroids):
 			for xSweep in range(-1,2,1):
 				for ySweep in range(-1,2,1):
 					mergedCentroids[yIndex+ySweep][xIndex+xSweep]=[255,0,0]
-		
 
-cv2.imshow("Identitfied",mergedCentroids)
+
+connections=mapFunctions.drawLines(125,centroids,3)
+for baseIndex,baseSet in enumerate(connections):
+	baseY,baseX=centroids[baseIndex][0],centroids[baseIndex][1]
+	for connectIndex,connect in enumerate(connections[baseIndex]):
+		toIndex=connect
+		toY,toX=centroids[toIndex][0],centroids[toIndex][1]
+		cv2.line(mergedCentroids,(baseX,baseY),(toX,toY),(0,255,0))
+for element in connections:
+	print(element)
+cv2.imshow("test",mergedCentroids)
 cv2.waitKey(0)
 
-
-
+outNodes=open("outNodeEdges.txt",'w')
+for index,value in enumerate(centroids):
+	outNodes.write(str(len(connections[index]))+" ")
+	for element in connections[index]:
+		outNodes.write(str(element)+" ")
+	outNodes.write("\n")
+outNodes.close()
 
 
 

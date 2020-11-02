@@ -4,10 +4,17 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <tuple>
+
+using namespace std;
+
+typedef struct {
+    tuple<int,int> nodePos;
+    vector<int> connections;
+} Node;
 
 using namespace std;
 void loadMap(string inFile, vector<vector<int> >& outMap);
-vector<tuple<int,int> > identifyWalkingPoints(vector<vector<int> >& streepMap);
-vector<vector<tuple<int,int> > > identifyWalkingVectors(vector<tuple<int,int> >& walkingPoints);
+vector<Node> loadNodes(string inFile,string edgeConnectionPath);
 
 #endif

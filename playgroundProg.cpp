@@ -14,7 +14,7 @@ int main(){
 
 	vector<vector<int> > streetMap;
 	loadMap("streetMatrix",streetMap);
-	vector<tuple<int,int> > outIntersections=identifyWalkingPoints(streetMap);
+	loadNodes("finalNodes","outNodeEdges");
 	
 	
 
